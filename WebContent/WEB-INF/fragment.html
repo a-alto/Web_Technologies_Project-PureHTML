@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+ 	
+	<div th:fragment="list(category)">
+
+		<div th:if="${category.isTop == true}" th:class="(${category.isTop}) ? 'top'">
+
+			<span th:text="${category.cod} + ' ' + ${category.name}"></span>
+
+			<a th:href="@{/MoveCategory(idCatToMove=${category.id})}">>>Move Category</a>
+
+		</div>
+
+		<ul th:unless="${#lists.isEmpty(category.subParts)}" class="subpart">
+
+			<li th:each="child : ${category.subParts}"><span
+				th:text="${child.cod} + ' ' + ${child.getName()}"></span>
+
+				 <a th:href="@{/MoveCategory(idCatToMove=${child.getId()})}">>>Move Category</a>
+				
+				<ul th:replace="this::list (${child})"></ul></li>
+
+		</ul>
+
+	</div>
+
+</body>
+
+</html>

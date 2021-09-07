@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Image Cataloguing Home</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="../css/mystyle.css" th:href="@{/css/mystyle.css}" />
+</head>
+<body>
+
+
+	<h1>Welcome to the Image Cataloguing Management Home Page</h1>
+
+	<ul>
+	<li th:if="${movingMode == true}" th:each="category : ${topcategories}"
+			th:insert="@{WEB-INF/fragmentMovingMode.html} :: list(category)"></li>
+			
+	<li th:if="${movingMode == false}" th:each="category : ${topcategories}"
+		th:insert="@{WEB-INF/fragment.html} :: list(category)"></li>
+		
+	</ul>
+
+	<div class="formdiv">
+		<p>Complete the form to create a category</p>
+		<form action="#" th:action="@{/CreateCategory}" method="POST">
+			<fieldset>
+				<p>
+					Name: <input type="text" name="name" required/>
+				</p>
+				<p>
+					<label for="allcategories">Choose the category-father:</label> <select
+						name="categoryId" id="categoryId">
+						<option th:each="c : ${allcategories}" th:value="${c.id}"
+							th:text="${c.name}"></option>
+					</select>
+				</p>
+				<input type="submit" name="Create Category">
+			</fieldset>
+		</form>
+	</div>
+
+</body>
+</html>
